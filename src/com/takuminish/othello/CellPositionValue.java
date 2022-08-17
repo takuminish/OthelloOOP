@@ -1,7 +1,7 @@
 package com.takuminish.othello;
 
 /**
- *
+ * オセロのセルの位置の値を表すクラス
  */
 public class CellPositionValue {
     /** オセロのセルの位置の値 */
