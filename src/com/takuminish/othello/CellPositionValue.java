@@ -11,12 +11,12 @@ public class CellPositionValue {
      *コンストラクタ
      *
      * @param value
-     * @throws  値が負数です
+     * @throws  IllegalArgumentException 値が負数です
      */
-     CellPositionValue(final int value) throws Exception {
+     CellPositionValue(final int value) throws IllegalArgumentException {
         // 負数は格納できない
         if (value < 0) {
-            throw new Exception();
+            throw new IllegalArgumentException();
         }
 
         this.value = value;
