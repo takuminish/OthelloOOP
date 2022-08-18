@@ -47,7 +47,9 @@ public class ManualCLIPlayer implements Player {
             try {
                 // Playerからの入力を受け付ける
                 // 不正な値の場合は、再度入力
-                final CellPosition position = this.selectCellPosition(Integer.parseInt(scanner.next()), Integer.parseInt(scanner.next()));
+                final int x = Integer.parseInt(scanner.next());
+                final int y = Integer.parseInt(scanner.next());
+                final CellPosition position = this.selectCellPosition(x, y);
 
                 scanner.close();
 
