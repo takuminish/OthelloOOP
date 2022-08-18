@@ -15,7 +15,7 @@ public class Stone {
      * @param position 石の位置
      * @param type 石の種類
      */
-    Stone(final CellPosition position, final  StoneType type) {
+    public Stone(final CellPosition position, final  StoneType type) {
         this.position = position;
         this.type = type;
     }
