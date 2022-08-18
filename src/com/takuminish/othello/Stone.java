@@ -38,5 +38,14 @@ public class Stone {
         return new Stone(position, StoneType.Black);
     }
 
+    /**
+     * プレイヤーの操作よる石の生成
+     * @param position 石の位置
+     * @param type 石の種類
+     * @return 石のインスタンス
+     */
+    static public Stone createStone4PlayHand(final CellPosition position, final  StoneType type) {
+        return new Stone(position, type);
+    }
 
 }
