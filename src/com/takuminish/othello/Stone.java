@@ -39,6 +39,15 @@ public class Stone {
     }
 
     /**
+     * 石の未配置のインスタンスを生成
+     * @param position 石の位置
+     * @return 黒石のStoneインスタンス
+     */
+    static public Stone createEmptyStone(final CellPosition position) {
+        return new Stone(position, StoneType.Empty);
+    }
+
+    /**
      * プレイヤーの操作よる石の生成
      * @param position 石の位置
      * @param type 石の種類
@@ -46,6 +55,17 @@ public class Stone {
      */
     static public Stone createStone4PlayHand(final CellPosition position, final  StoneType type) {
         return new Stone(position, type);
+    }
+
+    /**
+     * 石のコンソール出力
+     */
+    public void outputCLIStone() {
+        switch(this.type) {
+            case White: System.out.print("○"); break;
+            case Black: System.out.print("●"); break;
+            case Empty: System.out.print("-"); break;
+        }
     }
 
 }

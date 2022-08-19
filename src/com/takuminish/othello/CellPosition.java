@@ -21,13 +21,11 @@ public class CellPosition {
         this.y = y;
     }
 
-    /** オセロのセルの位置(X方向)のGetter */
-    public CellPositionValue getX() {
-        return this.x;
-    }
-
-    /** オセロのセルの位置(Y方向)のGetter */
-    public CellPositionValue getY() {
-        return this.y;
+    /**
+     *  オセロのセルの位置(Y方向×盤面の幅+X方向)
+     * @param boardWidth 盤面の幅
+     */
+    public int getCellPosition(final int boardWidth) {
+        return this.y.getValue() * boardWidth + this.x.getValue();
     }
 }

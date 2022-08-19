@@ -1,6 +1,5 @@
 package com.takuminish.player;
 
-import com.takuminish.othello.CellPosition;
 import com.takuminish.othello.Stone;
 import com.takuminish.othello.StoneType;
 
