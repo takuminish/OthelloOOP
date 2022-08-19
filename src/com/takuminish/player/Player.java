@@ -1,6 +1,6 @@
 package com.takuminish.player;
 
-import com.takuminish.othello.Stone;
+import com.takuminish.othello.stone.Stone;
 import com.takuminish.othello.StoneType;
 
 /**

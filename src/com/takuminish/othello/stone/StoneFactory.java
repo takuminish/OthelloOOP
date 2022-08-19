@@ -1,23 +1,18 @@
-package com.takuminish.othello;
+package com.takuminish.othello.stone;
+
+import com.takuminish.othello.CellPosition;
+import com.takuminish.othello.StoneType;
 
 /**
  * オセロの石
  */
-public class Stone {
-    /** 石の位置 */
-    private final CellPosition position;
-
-    /** 石の種類 */
-    private final StoneType type;
+public class StoneFactory {
 
     /**
-     * コンストラクタ
-     * @param position 石の位置
-     * @param type 石の種類
+     * インスタンス化させない
      */
-    private Stone(final CellPosition position, final  StoneType type) {
-        this.position = position;
-        this.type = type;
+    private StoneFactory() {
+
     }
 
     /**
@@ -26,7 +21,7 @@ public class Stone {
      * @return 白石のStoneインスタンス
      */
     static public Stone createWhiteStone(final CellPosition position) {
-        return new Stone(position, StoneType.White);
+        return new WhiteStone(position, StoneType.White);
     }
 
     /**
@@ -35,7 +30,7 @@ public class Stone {
      * @return 黒石のStoneインスタンス
      */
     static public Stone createBlackStone(final CellPosition position) {
-        return new Stone(position, StoneType.Black);
+        return new BlackStone(position, StoneType.Black);
     }
 
     /**
@@ -44,7 +39,7 @@ public class Stone {
      * @return 黒石のStoneインスタンス
      */
     static public Stone createEmptyStone(final CellPosition position) {
-        return new Stone(position, StoneType.Empty);
+        return new EmptyStone(position, StoneType.Empty);
     }
 
     /**
@@ -54,18 +49,12 @@ public class Stone {
      * @return 石のインスタンス
      */
     static public Stone createStone4PlayHand(final CellPosition position, final  StoneType type) {
-        return new Stone(position, type);
-    }
-
-    /**
-     * 石のコンソール出力
-     */
-    public void outputCLIStone() {
-        switch(this.type) {
-            case White: System.out.print("○"); break;
-            case Black: System.out.print("●"); break;
-            case Empty: System.out.print("-"); break;
+        switch(type) {
+            case White: return createWhiteStone(position);
+            case Black: return createBlackStone(position);
+            case Empty: return createEmptyStone(position);
         }
-    }
 
+        return createEmptyStone(position);
+    }
 }

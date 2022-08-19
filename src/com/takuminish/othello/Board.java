@@ -1,5 +1,8 @@
 package com.takuminish.othello;
 
+import com.takuminish.othello.stone.Stone;
+import com.takuminish.othello.stone.StoneFactory;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,7 +11,7 @@ import java.util.Map;
  */
 public class Board {
     /** オセロ盤面を表す */
-    private Map<Integer,Stone> board;
+    private Map<Integer, Stone> board;
 
     /** オセロ盤面の幅を表す */
     private final int boardWidth;
@@ -40,23 +43,23 @@ public class Board {
         for(int y = 0; y < this.boardWidth; y++) {
             for(int x = 0; x < this.boardWidth; x++) {
                 final CellPosition InitialEmptyPosition = new CellPosition(new CellPositionValue(x), new CellPositionValue(y));
-                this.board.put((InitialEmptyPosition.getCellPosition(this.boardWidth)), Stone.createEmptyStone(InitialEmptyPosition));
+                this.board.put((InitialEmptyPosition.getCellPosition(this.boardWidth)), StoneFactory.createEmptyStone(InitialEmptyPosition));
             }
         }
 
         // 盤面の初期状態のセット(白石)
         final CellPosition InitialWhiteStone1Position = new CellPosition(new CellPositionValue(this.boardWidth/2-1), new CellPositionValue(this.boardWidth/2-1));
-        this.board.put((InitialWhiteStone1Position.getCellPosition(this.boardWidth)), Stone.createWhiteStone(InitialWhiteStone1Position));
+        this.board.put((InitialWhiteStone1Position.getCellPosition(this.boardWidth)), StoneFactory.createWhiteStone(InitialWhiteStone1Position));
 
         final CellPosition InitialWhiteStone2Position = new CellPosition(new CellPositionValue(this.boardWidth/2), new CellPositionValue(this.boardWidth/2));
-        this.board.put((InitialWhiteStone2Position.getCellPosition(this.boardWidth)), Stone.createWhiteStone(InitialWhiteStone2Position));
+        this.board.put((InitialWhiteStone2Position.getCellPosition(this.boardWidth)), StoneFactory.createWhiteStone(InitialWhiteStone2Position));
 
         // 盤面の初期状態のセット(黒石)
         final CellPosition InitialBlackStone1Position = new CellPosition(new CellPositionValue(this.boardWidth/2), new CellPositionValue(this.boardWidth/2-1));
-        this.board.put((InitialBlackStone1Position.getCellPosition(this.boardWidth)), Stone.createBlackStone(InitialBlackStone1Position));
+        this.board.put((InitialBlackStone1Position.getCellPosition(this.boardWidth)), StoneFactory.createBlackStone(InitialBlackStone1Position));
 
         final CellPosition InitialBlackStone2Position = new CellPosition(new CellPositionValue(this.boardWidth/2-1), new CellPositionValue(this.boardWidth/2));
-        this.board.put((InitialBlackStone2Position.getCellPosition(this.boardWidth)), Stone.createBlackStone(InitialBlackStone2Position));
+        this.board.put((InitialBlackStone2Position.getCellPosition(this.boardWidth)), StoneFactory.createBlackStone(InitialBlackStone2Position));
     }
 
     /**

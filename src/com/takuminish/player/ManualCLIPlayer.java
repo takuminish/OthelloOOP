@@ -1,9 +1,8 @@
 package com.takuminish.player;
 
-import com.takuminish.othello.CellPosition;
-import com.takuminish.othello.CellPositionValue;
-import com.takuminish.othello.Stone;
-import com.takuminish.othello.StoneType;
+import com.takuminish.othello.*;
+import com.takuminish.othello.stone.Stone;
+import com.takuminish.othello.stone.StoneFactory;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -53,7 +52,7 @@ public class ManualCLIPlayer implements Player {
 
                 scanner.close();
 
-                return Stone.createStone4PlayHand(position, this.myStoneType);
+                return StoneFactory.createStone4PlayHand(position, this.myStoneType);
 
             } catch(IllegalArgumentException e)  {
                 e.printStackTrace();
