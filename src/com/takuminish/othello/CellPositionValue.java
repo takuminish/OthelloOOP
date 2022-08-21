@@ -1,5 +1,7 @@
 package com.takuminish.othello;
 
+import java.util.Objects;
+
 /**
  * オセロのセルの位置の値を表すクラス
  */
@@ -28,5 +30,18 @@ public class CellPositionValue {
      */
     public int getValue() {
         return this.value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CellPositionValue that = (CellPositionValue) o;
+        return value == that.value;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
     }
 }

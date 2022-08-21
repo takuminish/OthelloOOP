@@ -3,7 +3,9 @@ package com.takuminish.othello;
 import com.takuminish.othello.stone.Stone;
 import com.takuminish.othello.stone.StoneFactory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -77,4 +79,17 @@ public class Board {
             System.out.print(" ");
         }
     }
+
+    /**
+     * 引数に受け取った石の種類を配置可能な、まだ石が置かれていない盤面の位置の一覧を返す。
+     * 配置可能な位置が存在しない場合は、空のリストを返す。
+     * @param stoneType 配置をしたい石の種類
+     * @return stoneTypeが配置可能な盤面の位置の一覧
+     */
+    public List<CellPosition> getPlayPossibleCellPositionList(final StoneType stoneType) {
+        List<CellPosition> playPossibleCellPositionList = new ArrayList<CellPosition>();
+
+        return playPossibleCellPositionList;
+    }
+
 }

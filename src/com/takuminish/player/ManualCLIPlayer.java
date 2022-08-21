@@ -5,6 +5,7 @@ import com.takuminish.othello.stone.Stone;
 import com.takuminish.othello.stone.StoneFactory;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -35,10 +36,11 @@ public class ManualCLIPlayer implements Player {
      * CLIからの入力により盤面に配置する石を決定する
      * <p>入力形式</p>
      * <pre>x y</pre>
+     * @param playPossibleCellPositionList　石が配置可能な位置一覧
      * @return 盤面に配置する石
      */
     @Override
-    public Stone playHand() {
+    public Stone playHand(final List<CellPosition> playPossibleCellPositionList) {
         final Scanner scanner = new Scanner(System.in);
 
         // 正常な値が入力できるまで、再度入力させる
@@ -49,6 +51,11 @@ public class ManualCLIPlayer implements Player {
                 final int x = Integer.parseInt(scanner.next());
                 final int y = Integer.parseInt(scanner.next());
                 final CellPosition position = this.selectCellPosition(x, y);
+
+                // 石が配置可能な位置出ない場合は、再度入力
+                if(!playPossibleCellPositionList.contains(position)) {
+                    throw new IllegalArgumentException("配置可能なセルではありません。");
+                }
 
                 scanner.close();
 
