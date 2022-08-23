@@ -17,6 +17,12 @@ public interface Player {
     public StoneType myStoneType();
 
     /**
+     * 自分が使用する石の盤面上の数を返す
+     * @return 自分が使用する石の盤面上の数
+     */
+    public int myStoneNum();
+
+    /**
      * 盤面に配置する石を決定する
      * @return 盤面に配置する石
      */

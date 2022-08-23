@@ -92,4 +92,13 @@ public class Board {
         return playPossibleCellPositionList;
     }
 
+    /**
+     * 引数に指定した石の種類の個数を返す
+     * @param stoneType 石の種類
+     * @return　盤面の石の種類の個数
+     */
+    public long getStoneTypeNumOnBoard(StoneType stoneType) {
+        return this.board.entrySet().stream().filter(cell -> cell.getValue().stoneType().equals(stoneType)).count();
+    }
+
 }
