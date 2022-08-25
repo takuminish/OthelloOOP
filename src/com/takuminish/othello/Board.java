@@ -12,12 +12,6 @@ import java.util.Map;
  * オセロ盤のクラス
  */
 public class Board {
-
-    public static void main(String[] args) {
-        Board b = new Board(6);
-
-        b.outputCLIBoard();
-    }
     /** オセロ盤面を表す */
     private Map<Integer, Stone> board;
 
@@ -120,7 +114,111 @@ public class Board {
      */
     public List<CellPosition> getPlayPossibleCellPositionList(final StoneType stoneType) {
         List<CellPosition> playPossibleCellPositionList = new ArrayList<CellPosition>();
+
+        for (int y = 1; y < this.boardWidth -1; y++) {
+            for (int x = 1; x < this.boardWidth -1; x++) {
+                final CellPosition playPossibleCellPosition = new CellPosition(new CellPositionValue(x), new CellPositionValue(y));
+                // 左上
+                List<CellPosition> possibleReverseListForUpperLeft = this.get1wayReversePossibleCellPositionList(StoneFactory.createBlackStone(playPossibleCellPosition), this.boardWidth * -1 -1);
+                // ひっくり返せる石が一つでもあれば、石を置くことができる
+                if(possibleReverseListForUpperLeft.size() > 0) {
+                    playPossibleCellPositionList.add(playPossibleCellPosition);
+                    continue;
+                }
+                // 上
+                List<CellPosition> possibleReverseListForUpperMiddle =this.get1wayReversePossibleCellPositionList(StoneFactory.createBlackStone(playPossibleCellPosition), this.boardWidth * -1);
+                // ひっくり返せる石が一つでもあれば、石を置くことができる
+                if(possibleReverseListForUpperMiddle.size() > 0) {
+                    playPossibleCellPositionList.add(playPossibleCellPosition);
+                    continue;
+                }
+
+                // 右上
+                List<CellPosition> possibleReverseListForUpperRight =this.get1wayReversePossibleCellPositionList(StoneFactory.createBlackStone(playPossibleCellPosition), this.boardWidth * -1 +1);
+                // ひっくり返せる石が一つでもあれば、石を置くことができる
+                if(possibleReverseListForUpperRight.size() > 0) {
+                    playPossibleCellPositionList.add(playPossibleCellPosition);
+                    continue;
+                }
+
+                //　左
+                List<CellPosition> possibleReverseListForMiddleLeft =this.get1wayReversePossibleCellPositionList(StoneFactory.createBlackStone(playPossibleCellPosition), -1);
+                // ひっくり返せる石が一つでもあれば、石を置くことができる
+                if(possibleReverseListForMiddleLeft.size() > 0) {
+                    playPossibleCellPositionList.add(playPossibleCellPosition);
+                    continue;
+                }
+
+                // 右
+                List<CellPosition> possibleReverseListForMiddleRight =this.get1wayReversePossibleCellPositionList(StoneFactory.createBlackStone(playPossibleCellPosition), +1);
+                // ひっくり返せる石が一つでもあれば、石を置くことができる
+                if(possibleReverseListForMiddleRight.size() > 0) {
+                    playPossibleCellPositionList.add(playPossibleCellPosition);
+                    continue;
+                }
+
+                // 左下
+                List<CellPosition> possibleReverseListForLowerLeft =this.get1wayReversePossibleCellPositionList(StoneFactory.createBlackStone(playPossibleCellPosition), this.boardWidth -1);
+                // ひっくり返せる石が一つでもあれば、石を置くことができる
+                if(possibleReverseListForLowerLeft.size() > 0) {
+                    playPossibleCellPositionList.add(playPossibleCellPosition);
+                    continue;
+                }
+
+                // 下
+                List<CellPosition> possibleReverseListForLowerMiddle =this.get1wayReversePossibleCellPositionList(StoneFactory.createBlackStone(playPossibleCellPosition), this.boardWidth);
+                // ひっくり返せる石が一つでもあれば、石を置くことができる
+                if(possibleReverseListForLowerMiddle.size() > 0) {
+                    playPossibleCellPositionList.add(playPossibleCellPosition);
+                    continue;
+                }
+
+                //　右下
+                List<CellPosition> possibleReverseListForLowerRight =this.get1wayReversePossibleCellPositionList(StoneFactory.createBlackStone(playPossibleCellPosition), this.boardWidth + 1);
+                // ひっくり返せる石が一つでもあれば、石を置くことができる
+                if(possibleReverseListForLowerRight.size() > 0) {
+                    playPossibleCellPositionList.add(playPossibleCellPosition);
+                    continue;
+                }
+            }
+        }
+
+
         return playPossibleCellPositionList;
+    }
+
+    /**
+     * 1方向に対して、相手の石をひっくり返せるかチェックする
+     * @param プレイヤーが置く予定の石
+     * @param ひっくり返せるかチェックする方向
+     * @return ひっくり返せる石のリスト
+     * 　　　　　ひっくり返せる石が存在しない場合は空
+     */
+    private List<CellPosition> get1wayReversePossibleCellPositionList(final Stone playHandStone, final int reverseWay) {
+        List<CellPosition> reversePossibleCellPositionList = new ArrayList<CellPosition>();
+
+        int checkReversePosition = playHandStone.stonePosition().getCellPosition(this.boardWidth) + reverseWay;
+
+        // 盤面外の番兵に当たるまでチェックを繰り返す
+        while(this.board.get(checkReversePosition).stoneType() != StoneType.SENTINEL) {
+            // 1方向で石を確認し、空のセルがある場合はひっくり返せない
+            if(this.board.get(checkReversePosition).stoneType() == StoneType.Empty) {
+                return new ArrayList<CellPosition>();
+            }
+
+            // 1方向で石を確認し、自分とおなじ石または空のセルがあった場合は、チェック終了
+            if(this.board.get(checkReversePosition).stoneType() == playHandStone.stoneType()) {
+                break;
+            }
+
+            // 相手の石はひっくり返せるためリストに格納
+            reversePossibleCellPositionList.add(this.board.get(checkReversePosition).stonePosition());
+
+            // 1セル分、チェックするセルを動かす
+            checkReversePosition += reverseWay;
+        }
+
+        return reversePossibleCellPositionList;
     }
 
     /**
