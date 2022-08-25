@@ -15,12 +15,16 @@ public class ManualCLIPlayer implements Player {
     /** 自分の石の種類 */
     private StoneType myStoneType;
 
+    /** 自分の石の数 */
+    private long myStoneNum;
+
     /**
      * コンストラクタ
      * @param stoneType 自分の石の種類
      */
     public ManualCLIPlayer(StoneType stoneType) {
         this.myStoneType = stoneType;
+        this.myStoneNum = 0;
     }
 
     /**
@@ -30,6 +34,19 @@ public class ManualCLIPlayer implements Player {
     @Override
     public StoneType myStoneType() {
         return this.myStoneType;
+    }
+
+    @Override
+    public long myStoneNum() {
+        return this.myStoneNum;
+    }
+
+    public void setMyStone(final long stoneNum) {
+        if(stoneNum < 0) {
+            throw new IllegalArgumentException("石の数は負数にはできません。");
+        }
+
+        this.myStoneNum = stoneNum;
     }
 
     /**

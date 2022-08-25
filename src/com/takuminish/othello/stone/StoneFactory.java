@@ -43,6 +43,15 @@ public class StoneFactory {
     }
 
     /**
+     * 石の番兵のインスタンスを生成
+     * @param position 石の位置
+     * @return 番兵のStoneインスタンス
+     */
+    static public Stone createSentinelStone(final CellPosition position) {
+        return new SentinelStone(position, StoneType.SENTINEL);
+    }
+
+    /**
      * プレイヤーの操作よる石の生成
      * @param position 石の位置
      * @param type 石の種類

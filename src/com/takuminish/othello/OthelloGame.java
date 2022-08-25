@@ -46,7 +46,7 @@ public class OthelloGame {
 
             // パス(配置可能な石が存在しない場合、相手のターンに移る)
             if (playPossibleCellPositionList.size() == 0) {
-                System.out.println("「パス」相手のターンに移ります。");
+                System.out.println("【パス】相手のターンに移ります。");
                 turnCount++;
                 continue;
             }
@@ -57,6 +57,7 @@ public class OthelloGame {
             // 石を配置し、相手の石をひっくり返す
 
             // プレイヤーの石の数を更新する
+            this.playerList.stream().forEach(player -> player.setMyStone(this.board.getStoneTypeNumOnBoard(player.myStoneType())));
 
             // 盤面の状態の表示
 
@@ -83,7 +84,7 @@ public class OthelloGame {
      * @return 石が一番多いプレイヤー
      */
     private Player mostStonePlayerInPlayerList() {
-        Map<Player, Integer> stoneNumOfPlayer = this.playerList.stream().collect(Collectors.toMap(player -> player,player -> player.myStoneNum()));
+        Map<Player, Long> stoneNumOfPlayer = this.playerList.stream().collect(Collectors.toMap(player -> player,player -> player.myStoneNum()));
         return stoneNumOfPlayer.entrySet().stream().max((p1 , p2) -> p1.getValue().compareTo(p2.getValue())).get().getKey();
     }
 

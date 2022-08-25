@@ -12,11 +12,19 @@ import java.util.Map;
  * オセロ盤のクラス
  */
 public class Board {
+
+    public static void main(String[] args) {
+        Board b = new Board(6);
+
+        b.outputCLIBoard();
+    }
     /** オセロ盤面を表す */
     private Map<Integer, Stone> board;
 
     /** オセロ盤面の幅を表す */
     private final int boardWidth;
+
+    private final int SENTINEL_WIDTH = 2;
 
     /**
      * コンストラクタ
@@ -30,7 +38,8 @@ public class Board {
             throw new IllegalArgumentException("オセロ盤の幅が奇数は無理です。");
         }
 
-        this.boardWidth = boardWidth;
+        // 設定する盤面の上下左右1辺を番兵として使用するため、幅を+2する
+        this.boardWidth = boardWidth + this.SENTINEL_WIDTH;
 
         // オセロ盤面の初期化
         this.boardInit();
@@ -62,6 +71,29 @@ public class Board {
 
         final CellPosition InitialBlackStone2Position = new CellPosition(new CellPositionValue(this.boardWidth/2-1), new CellPositionValue(this.boardWidth/2));
         this.board.put((InitialBlackStone2Position.getCellPosition(this.boardWidth)), StoneFactory.createBlackStone(InitialBlackStone2Position));
+
+        //　盤面の上下左右1辺を番兵として使用する
+        // 上辺
+        for (int x = 0; x < this.boardWidth; x++) {
+            final CellPosition SentinelPosition = new CellPosition(new CellPositionValue(x), new CellPositionValue(0));
+            this.board.put((SentinelPosition.getCellPosition(this.boardWidth)), StoneFactory.createSentinelStone(SentinelPosition));
+        }
+        // 下辺
+        for (int x = 0; x < this.boardWidth; x++) {
+            final CellPosition SentinelPosition = new CellPosition(new CellPositionValue(x), new CellPositionValue(this.boardWidth-1));
+            this.board.put((SentinelPosition.getCellPosition(this.boardWidth)), StoneFactory.createSentinelStone(SentinelPosition));
+        }
+        // 左辺
+        for (int y = 0; y < this.boardWidth; y++) {
+            final CellPosition SentinelPosition = new CellPosition(new CellPositionValue(0), new CellPositionValue(y));
+            this.board.put((SentinelPosition.getCellPosition(this.boardWidth)), StoneFactory.createSentinelStone(SentinelPosition));
+        }
+
+        // 右辺
+        for (int y = 0; y < this.boardWidth; y++) {
+            final CellPosition SentinelPosition = new CellPosition(new CellPositionValue(this.boardWidth-1), new CellPositionValue(y));
+            this.board.put((SentinelPosition.getCellPosition(this.boardWidth)), StoneFactory.createSentinelStone(SentinelPosition));
+        }
     }
 
     /**
@@ -88,7 +120,6 @@ public class Board {
      */
     public List<CellPosition> getPlayPossibleCellPositionList(final StoneType stoneType) {
         List<CellPosition> playPossibleCellPositionList = new ArrayList<CellPosition>();
-
         return playPossibleCellPositionList;
     }
 
@@ -100,5 +131,4 @@ public class Board {
     public long getStoneTypeNumOnBoard(StoneType stoneType) {
         return this.board.entrySet().stream().filter(cell -> cell.getValue().stoneType().equals(stoneType)).count();
     }
-
 }
